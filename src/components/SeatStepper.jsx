@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { checkSeatLimit } from '../rules/seatLimit.js';
+import { checkSeatLimit, MAX_SEATS_PER_BOOKING } from '../rules/seatLimit.js';
 import { formatSeats } from '../utils/format.js';
 
 // A minus button, the current number of seats and a plus button.
@@ -60,7 +60,11 @@ function SeatStepper({ seats, seatsLeft, onChange, itemName }) {
         </button>
       </div>
 
-      <p className="field-hint">You can book up to {formatSeats(maxAllowed)} here.</p>
+      {/* Rule 1 is explained right beside the control it limits. */}
+      <p className="field-hint">
+        Limit: {MAX_SEATS_PER_BOOKING} seats per booking. {formatSeats(seatsLeft)} left, so you can
+        choose up to {maxAllowed}.
+      </p>
 
       {limitMessage !== '' && (
         <p className="field-error" role="alert">

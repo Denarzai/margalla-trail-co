@@ -123,11 +123,6 @@ function ExperienceDetailsPage({ experiences, planItems, onSetPlanSeats, onRemov
               </div>
             </dl>
 
-            <p className="message message-info">
-              <strong>Age rule:</strong> everyone in your group must be at least {experience.minAge}{' '}
-              years old. We check the age of your youngest participant on the booking form.
-            </p>
-
             {/* key={experience.id} gives every experience its own fresh
                 panel, so the seat number never leaks from one to another. */}
             <AddToPlanPanel
@@ -137,6 +132,11 @@ function ExperienceDetailsPage({ experiences, planItems, onSetPlanSeats, onRemov
               onSetPlanSeats={onSetPlanSeats}
               onRemoveFromPlan={onRemoveFromPlan}
             />
+
+            <p className="message message-info details-rule">
+              <strong>Age rule:</strong> everyone in your group must be at least {experience.minAge}{' '}
+              years old. We check the age of your youngest participant on the booking form.
+            </p>
 
             <p className="hint">
               A {formatPrice(BOOKING_FEE)} booking fee applies to bookings under{' '}

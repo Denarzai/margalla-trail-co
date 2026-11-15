@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SeatStepper from './SeatStepper.jsx';
-import { checkSeatLimit, MAX_SEATS_PER_BOOKING } from '../rules/seatLimit.js';
+import { checkSeatLimit } from '../rules/seatLimit.js';
 import { formatPrice, formatSeats } from '../utils/format.js';
 
 // The "choose seats and add to plan" box on the details page.
@@ -50,9 +50,6 @@ function AddToPlanPanel({ experience, seatsInPlan, onSetPlanSeats, onRemoveFromP
         onChange={setSelectedSeats}
         itemName={experience.name}
       />
-      <p className="field-hint">
-        Rule: at most {MAX_SEATS_PER_BOOKING} seats per booking, and never more than the seats left.
-      </p>
 
       {/* The saved plan can hold more seats than are left now. */}
       {!seatCheck.ok && (
