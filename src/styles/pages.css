@@ -1,0 +1,135 @@
+/* ==========================================================
+   pages.css - rules that belong to one specific page
+   ========================================================== */
+
+.page-lead {
+  color: var(--color-muted);
+}
+
+.breadcrumb {
+  margin-bottom: var(--space-3);
+}
+
+/* ---------- Home page ---------- */
+.hero {
+  background-color: var(--color-leaf);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.hero-inner {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-2);
+  color: var(--color-primary);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.hero-lead {
+  font-size: 1.1rem;
+  max-width: 34rem;
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.steps {
+  display: grid;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.steps li {
+  padding: var(--space-4);
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+}
+
+.steps p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+/* ---------- Details page ---------- */
+.details-layout {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.details-main .experience-image,
+.details-main .image-fallback {
+  border-radius: var(--radius);
+  margin-bottom: var(--space-4);
+}
+
+.details-main h1 {
+  overflow-wrap: anywhere;
+}
+
+.details-main h2 {
+  margin-top: var(--space-5);
+}
+
+.details-summary {
+  font-size: 1.1rem;
+  color: var(--color-muted);
+}
+
+.fact-table {
+  margin: var(--space-4) 0 0;
+}
+
+.fact-table div {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.fact-table dt {
+  color: var(--color-muted);
+}
+
+.fact-table dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ---------- Wider screens ---------- */
+@media (min-width: 768px) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+  }
+
+  .details-layout {
+    grid-template-columns: 1.6fr 1fr;
+    align-items: start;
+  }
+
+  /* The booking panel stays visible while the customer scrolls the text */
+  .details-side {
+    position: sticky;
+    top: 80px;
+  }
+}
