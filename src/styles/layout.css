@@ -42,9 +42,6 @@ main {
 .site-header {
   background-color: var(--color-forest);
   color: #ffffff;
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
 .header-inner {
@@ -199,6 +196,15 @@ main {
 
   .brand {
     font-size: 1.4rem;
+  }
+
+  /* On a wide screen the header stays visible while scrolling. On a phone
+     it scrolls away, because a two-line sticky header would cover too
+     much of a small screen. */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
   .footer-inner {
