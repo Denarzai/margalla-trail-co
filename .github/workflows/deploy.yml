@@ -36,8 +36,12 @@ jobs:
       - name: Run the business-rule tests
         run: node --test
 
+      # GitHub Pages serves the site from /<repository name>/, so we tell
+      # Vite to use that folder as the base path (see vite.config.js).
       - name: Build the website
         run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
 
       # GitHub Pages only knows real files. A direct visit to a route such
       # as /experiences/trail-5-sunrise has no file, so Pages would show its

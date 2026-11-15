@@ -1,15 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// The website is hosted on GitHub Pages inside a sub-folder that has the
-// same name as the repository: https://<user>.github.io/margalla-trail-co/
-// "base" tells Vite to put that folder name in front of every asset link
-// when we build. During development (npm run dev) we simply use "/".
-const REPOSITORY_NAME = 'margalla-trail-co';
-
-export default defineConfig(({ command }) => {
-  return {
-    plugins: [react()],
-    base: command === 'build' ? `/${REPOSITORY_NAME}/` : '/',
-  };
+// "base" is the folder the website is served from.
+// - On our own computer, and on hosts like Vercel or Netlify, that is "/".
+// - On GitHub Pages the site lives in a sub-folder with the repository
+//   name, so the deploy workflow (.github/workflows/deploy.yml) sets the
+//   BASE_PATH variable to "/margalla-trail-co/" before it builds.
+export default defineConfig({
+  plugins: [react()],
+  base: process.env.BASE_PATH || '/',
 });
