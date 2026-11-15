@@ -1,0 +1,21 @@
+# Installed packages (recreated with "npm install")
+node_modules/
+
+# Generated build output (recreated with "npm run build")
+dist/
+
+# Local environment files and secrets
+.env
+.env.*
+
+# Editor and system files
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+
+# Private course material and submission files that are not part of the source code
+Web Programming_A#02.pdf
+study-guide/
+submission/
+.claude/
