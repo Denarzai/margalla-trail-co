@@ -3,13 +3,19 @@ import { Link, useParams } from 'react-router-dom';
 import ExperienceImage from '../components/ExperienceImage.jsx';
 import AvailabilityBadge from '../components/AvailabilityBadge.jsx';
 import EmptyState from '../components/EmptyState.jsx';
+import AddToPlanPanel from '../components/AddToPlanPanel.jsx';
+import { BOOKING_FEE, FREE_FEE_SUBTOTAL } from '../rules/bookingFee.js';
+import { getSeatsInPlan } from '../utils/planHelpers.js';
 import { formatDuration, formatPrice } from '../utils/format.js';
 
 // Details page for one experience. The id comes from the URL,
 // for example /experiences/trail-5-sunrise
 // Props:
-//   experiences - all loaded records
-function ExperienceDetailsPage({ experiences }) {
+//   experiences      - all loaded records
+//   planItems        - the customer's plan
+//   onSetPlanSeats   - callback: onSetPlanSeats(experienceId, seats)
+//   onRemoveFromPlan - callback: onRemoveFromPlan(experienceId)
+function ExperienceDetailsPage({ experiences, planItems, onSetPlanSeats, onRemoveFromPlan }) {
   // useParams reads the ":id" part of the URL.
   const { id } = useParams();
 
@@ -116,6 +122,26 @@ function ExperienceDetailsPage({ experiences }) {
                 <dd>{experience.meetingPoint}</dd>
               </div>
             </dl>
+
+            <p className="message message-info">
+              <strong>Age rule:</strong> everyone in your group must be at least {experience.minAge}{' '}
+              years old. We check the age of your youngest participant on the booking form.
+            </p>
+
+            {/* key={experience.id} gives every experience its own fresh
+                panel, so the seat number never leaks from one to another. */}
+            <AddToPlanPanel
+              key={experience.id}
+              experience={experience}
+              seatsInPlan={getSeatsInPlan(planItems, experience.id)}
+              onSetPlanSeats={onSetPlanSeats}
+              onRemoveFromPlan={onRemoveFromPlan}
+            />
+
+            <p className="hint">
+              A {formatPrice(BOOKING_FEE)} booking fee applies to bookings under{' '}
+              {formatPrice(FREE_FEE_SUBTOTAL)}.
+            </p>
           </div>
         </aside>
       </div>

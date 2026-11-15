@@ -2,14 +2,20 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ExperienceCard from '../components/ExperienceCard.jsx';
 import heroImage from '../assets/images/hero.svg';
+import { MAX_SEATS_PER_BOOKING } from '../rules/seatLimit.js';
+import { BOOKING_FEE, FREE_FEE_SUBTOTAL } from '../rules/bookingFee.js';
+import { getSeatsInPlan } from '../utils/planHelpers.js';
+import { formatPrice } from '../utils/format.js';
 
 const FEATURED_COUNT = 3;
 
 // Home page: explains the business and points to the main task.
 // Props:
-//   experiences   - all loaded records (an empty array while loading)
-//   loadStatusBox - loading / error box made by App, or null when data is ready
-function HomePage({ experiences, loadStatusBox }) {
+//   experiences    - all loaded records (an empty array while loading)
+//   planItems      - the customer's plan, to mark cards that are already selected
+//   onSetPlanSeats - callback: onSetPlanSeats(experienceId, seats)
+//   loadStatusBox  - loading / error box made by App, or null when data is ready
+function HomePage({ experiences, planItems, onSetPlanSeats, loadStatusBox }) {
   useEffect(() => {
     document.title = 'Margalla Trail Co. | Guided hikes around Islamabad';
   }, []);
@@ -74,9 +80,43 @@ function HomePage({ experiences, loadStatusBox }) {
 
         <div className="card-grid">
           {featuredExperiences.map((experience) => (
-            <ExperienceCard key={experience.id} experience={experience} />
+            <ExperienceCard
+              key={experience.id}
+              experience={experience}
+              seatsInPlan={getSeatsInPlan(planItems, experience.id)}
+              onSetPlanSeats={onSetPlanSeats}
+            />
           ))}
         </div>
+      </section>
+
+      {/* The three operating rules are explained before the customer starts. */}
+      <section className="container section" aria-labelledby="rules-title">
+        <h2 id="rules-title">Good to know before you book</h2>
+        <ul className="rule-list">
+          <li>
+            <h3>Seats are limited</h3>
+            <p>
+              You can book 1 to {MAX_SEATS_PER_BOOKING} seats per experience, and never more than
+              the seats left. Seats left are shown on every card.
+            </p>
+          </li>
+          <li>
+            <h3>Minimum ages apply</h3>
+            <p>
+              Each experience has a minimum age for safety. The youngest person in your group must
+              be at least that old.
+            </p>
+          </li>
+          <li>
+            <h3>Booking fee</h3>
+            <p>
+              A {formatPrice(BOOKING_FEE)} booking fee applies to bookings under{' '}
+              {formatPrice(FREE_FEE_SUBTOTAL)}. Bookings of {formatPrice(FREE_FEE_SUBTOTAL)} or more
+              have no fee.
+            </p>
+          </li>
+        </ul>
       </section>
     </>
   );

@@ -8,13 +8,16 @@ import {
   getVisibleExperiences,
   hasActiveFilters,
 } from '../utils/filterExperiences.js';
+import { getSeatsInPlan } from '../utils/planHelpers.js';
 
 // Listing page: browse, search, filter and sort all experiences.
 // Props:
 //   experiences     - all loaded records
 //   filters         - current search / filter / sort choices (kept in App)
 //   onFiltersChange - callback: onFiltersChange(newFilters)
-function ExperiencesPage({ experiences, filters, onFiltersChange }) {
+//   planItems       - the customer's plan, to mark cards that are already selected
+//   onSetPlanSeats  - callback: onSetPlanSeats(experienceId, seats)
+function ExperiencesPage({ experiences, filters, onFiltersChange, planItems, onSetPlanSeats }) {
   useEffect(() => {
     document.title = 'Experiences | Margalla Trail Co.';
   }, []);
@@ -102,7 +105,12 @@ function ExperiencesPage({ experiences, filters, onFiltersChange }) {
       ) : (
         <div className="card-grid">
           {visibleExperiences.map((experience) => (
-            <ExperienceCard key={experience.id} experience={experience} />
+            <ExperienceCard
+              key={experience.id}
+              experience={experience}
+              seatsInPlan={getSeatsInPlan(planItems, experience.id)}
+              onSetPlanSeats={onSetPlanSeats}
+            />
           ))}
         </div>
       )}
