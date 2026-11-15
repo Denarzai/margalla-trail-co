@@ -4,9 +4,9 @@
 
 | | |
 | --- | --- |
-| Student name | STUDENT_NAME_PLACEHOLDER |
+| Student name | Muhammad Subhan |
 | Roll number | 24I-2082 |
-| Section | STUDENT_SECTION_PLACEHOLDER |
+| Section | B |
 | Program | BS Cyber Security, FAST-NUCES Islamabad |
 | GitHub repository | https://github.com/Denarzai/margalla-trail-co |
 | Deployed website | https://denarzai.github.io/margalla-trail-co/ |
